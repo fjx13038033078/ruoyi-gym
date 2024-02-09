@@ -18,6 +18,16 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+
         <!-- 通用工具-->
         <dependency>
             <groupId>com.ruoyi</groupId>
