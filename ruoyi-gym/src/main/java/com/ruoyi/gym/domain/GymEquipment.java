@@ -1,8 +1,35 @@
 package com.ruoyi.gym.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import lombok.Data;
+
 /**
- * @Author fanjaixing
- * @Date 2024/2/9 20:11
+ * 健身器材表
+ * @TableName gym_equipment
  */
-public class GymEquipment {
+@TableName(value ="gym_equipment")
+@Data
+public class GymEquipment implements Serializable {
+    /**
+     * 设备ID
+     */
+    @TableId(type = IdType.AUTO)
+    private Long equipmentid;
+
+    /**
+     * 设备名称
+     */
+    private String equipmentname;
+
+    /**
+     * 设备数量
+     */
+    private Integer equipmentquantity;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }
