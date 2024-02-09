@@ -1,5 +1,10 @@
 package com.ruoyi.quartz.util;
 
+import com.ruoyi.common.constant.Constants;
+import com.ruoyi.common.constant.ScheduleConstants;
+import com.ruoyi.common.exception.job.TaskException;
+import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.spring.SpringUtils;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
@@ -10,12 +15,6 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
-import com.ruoyi.common.constant.Constants;
-import com.ruoyi.common.constant.ScheduleConstants;
-import com.ruoyi.common.exception.job.TaskException;
-import com.ruoyi.common.exception.job.TaskException.Code;
-import com.ruoyi.common.utils.StringUtils;
-import com.ruoyi.common.utils.spring.SpringUtils;
 import com.ruoyi.quartz.domain.SysJob;
 
 /**
@@ -115,7 +114,7 @@ public class ScheduleUtils
                 return cb.withMisfireHandlingInstructionDoNothing();
             default:
                 throw new TaskException("The task misfire policy '" + job.getMisfirePolicy()
-                        + "' cannot be used in cron schedule tasks", Code.CONFIG_ERROR);
+                        + "' cannot be used in cron schedule tasks", TaskException.Code.CONFIG_ERROR);
         }
     }
 
