@@ -59,14 +59,12 @@ public class GymCourseController extends BaseController {
     /**
      * 更新课程信息
      *
-     * @param courseId 待更新的课程ID
      * @param course   待更新的课程信息
      * @return 更新成功返回 true，否则返回 false
      */
     @PostMapping("/update")
-    public boolean updateCourse(@RequestParam Long courseId, @RequestBody GymCourse course) {
-        // TODO: 实现更新课程信息的业务逻辑
-        return false;
+    public AjaxResult updateCourse(@RequestBody GymCourse course) {
+        return toAjax(gymCourseService.updateCourse(course));
     }
 
     /**

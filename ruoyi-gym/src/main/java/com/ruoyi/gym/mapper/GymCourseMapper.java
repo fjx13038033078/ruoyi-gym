@@ -1,8 +1,6 @@
 package com.ruoyi.gym.mapper;
 
 import com.ruoyi.gym.domain.GymCourse;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ruoyi.gym.domain.GymEquipment;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
