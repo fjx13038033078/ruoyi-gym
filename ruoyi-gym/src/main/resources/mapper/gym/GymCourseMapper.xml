@@ -15,23 +15,23 @@
     </resultMap>
 
     <!-- 获取所有课程列表 -->
-    <select id="listAllCourses" resultType="com.ruoyi.gym.domain.GymCourse">
+    <select id="listAllCourses" resultMap="GymCourseResult">
         SELECT * FROM gym_course
     </select>
 
     <!-- 根据课程ID获取课程信息 -->
-    <select id="getCourseById" resultType="com.ruoyi.gym.domain.GymCourse">
+    <select id="getCourseById" parameterType="long" resultMap="GymCourseResult">
         SELECT * FROM gym_course WHERE course_id = #{courseId}
     </select>
 
     <!-- 添加课程 -->
-    <insert id="addCourse" parameterType="com.ruoyi.gym.domain.GymCourse">
+    <insert id="addCourse" parameterType="GymCourse">
         INSERT INTO gym_course (course_name, course_description, course_time, trainer_id, trainer_name, course_fee)
         VALUES (#{courseName}, #{courseDescription}, #{courseTime}, #{trainerId}, #{trainerName}, #{courseFee})
     </insert>
 
     <!-- 更新课程信息 -->
-    <update id="updateCourse" parameterType="com.ruoyi.gym.domain.GymCourse">
+    <update id="updateCourse" parameterType="GymCourse">
         UPDATE gym_course SET course_name = #{courseName}, course_description = #{courseDescription},
                               course_time = #{courseTime}, trainer_id = #{trainerId}, trainer_name = #{trainerName}, course_fee = #{courseFee}
         WHERE course_id = #{courseId}

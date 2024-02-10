@@ -4,6 +4,7 @@ import com.ruoyi.gym.domain.GymCourse;
 import com.ruoyi.gym.mapper.GymCourseMapper;
 import com.ruoyi.gym.service.GymCourseService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
  * @description 针对表【gym_course(课程表)】的数据库操作Service实现
  * @createDate 2024-02-09 23:02:51
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GymCourseServiceImpl implements GymCourseService {
