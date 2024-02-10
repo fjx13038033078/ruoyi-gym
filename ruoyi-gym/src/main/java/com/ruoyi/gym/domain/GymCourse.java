@@ -7,10 +7,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * 课程表
+ * @author fanjiaxing
  * @TableName gym_course
  */
 @TableName(value ="gym_course")
@@ -20,42 +22,42 @@ public class GymCourse implements Serializable {
      * 课程ID
      */
     @TableId(type = IdType.AUTO)
-    private Long courseid;
+    private Long courseId;
 
     /**
      * 课程名称
      */
-    private String coursename;
+    private String courseName;
 
     /**
      * 课程描述
      */
-    private String coursedescription;
+    private String courseDescription;
 
     /**
      * 课程时间
      */
-    private Date coursetime;
+    private LocalDateTime courseTime;
 
     /**
      * 课程地点
      */
-    private String courselocation;
+    private String courseLocation;
 
     /**
      * 教练ID
      */
-    private Long trainerid;
+    private Long trainerId;
 
     /**
      * 教练名称
      */
-    private String trainername;
+    private String trainerName;
 
     /**
      * 课程费用
      */
-    private Integer coursefee;
+    private Integer courseFee;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

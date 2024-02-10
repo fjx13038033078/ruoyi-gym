@@ -9,6 +9,7 @@ import lombok.Data;
 
 /**
  * 健身器材表
+ * @author fanjiaxing
  * @TableName gym_equipment
  */
 @TableName(value ="gym_equipment")
@@ -18,17 +19,17 @@ public class GymEquipment implements Serializable {
      * 设备ID
      */
     @TableId(type = IdType.AUTO)
-    private Long equipmentid;
+    private Long equipmentId;
 
     /**
      * 设备名称
      */
-    private String equipmentname;
+    private String equipmentName;
 
     /**
      * 设备数量
      */
-    private Integer equipmentquantity;
+    private Integer equipmentQuantity;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
