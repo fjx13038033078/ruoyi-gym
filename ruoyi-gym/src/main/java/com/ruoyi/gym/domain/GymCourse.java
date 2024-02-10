@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,8 +15,12 @@ import java.util.Date;
  * @author fanjiaxing
  * @TableName gym_course
  */
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @TableName(value ="gym_course")
-@Data
 public class GymCourse implements Serializable {
     /**
      * 课程ID

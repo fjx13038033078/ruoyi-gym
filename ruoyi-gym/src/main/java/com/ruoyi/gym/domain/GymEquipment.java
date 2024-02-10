@@ -5,7 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import lombok.Data;
+
+import lombok.*;
 
 /**
  * 健身器材表
@@ -13,7 +14,10 @@ import lombok.Data;
  * @TableName gym_equipment
  */
 @TableName(value ="gym_equipment")
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class GymEquipment implements Serializable {
     /**
      * 设备ID

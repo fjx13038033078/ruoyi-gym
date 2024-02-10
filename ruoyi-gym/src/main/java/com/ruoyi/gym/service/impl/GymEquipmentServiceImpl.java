@@ -25,7 +25,7 @@ public class GymEquipmentServiceImpl implements GymEquipmentService {
      */
     @Override
     public List<GymEquipment> listAllEquipments() {
-        return gymEquipmentMapper.selectList(null);
+        return gymEquipmentMapper.listAllEquipments();
     }
 
     /**
@@ -35,7 +35,7 @@ public class GymEquipmentServiceImpl implements GymEquipmentService {
      */
     @Override
     public GymEquipment getEquipmentById(Long equipmentId) {
-        return gymEquipmentMapper.selectById(equipmentId);
+        return gymEquipmentMapper.getEquipmentById(equipmentId);
     }
 
     /**
@@ -45,7 +45,7 @@ public class GymEquipmentServiceImpl implements GymEquipmentService {
      */
     @Override
     public boolean addEquipment(GymEquipment equipment) {
-        int rows = gymEquipmentMapper.insert(equipment);
+        int rows = gymEquipmentMapper.addEquipment(equipment);
         return rows > 0;
     }
 
@@ -56,7 +56,7 @@ public class GymEquipmentServiceImpl implements GymEquipmentService {
      */
     @Override
     public boolean updateEquipment(GymEquipment equipment) {
-        int rows = gymEquipmentMapper.updateById(equipment);
+        int rows = gymEquipmentMapper.updateEquipment(equipment);
         return rows > 0;
     }
 
@@ -67,7 +67,7 @@ public class GymEquipmentServiceImpl implements GymEquipmentService {
      */
     @Override
     public boolean deleteEquipment(Long equipmentId) {
-        int rows = gymEquipmentMapper.deleteById(equipmentId);
+        int rows = gymEquipmentMapper.deleteEquipment(equipmentId);
         return rows > 0;
     }
 }

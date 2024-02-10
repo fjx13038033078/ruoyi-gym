@@ -19,62 +19,36 @@ public class GymCourseServiceImpl implements GymCourseService {
 
     private final GymCourseMapper gymCourseMapper;
 
-    /**
-     * 获取所有课程列表
-     */
+    // 获取所有课程列表
     @Override
     public List<GymCourse> listAllCourses() {
-        // 使用 MyBatis Plus 的 selectList 方法查询所有课程
-        return gymCourseMapper.selectList(null);
+        return gymCourseMapper.listAllCourses();
     }
 
-    /**
-     * 根据课程ID获取课程信息
-     * @param courseId 课程ID
-     * @return 对应课程信息，如果不存在则返回 null
-     */
+    // 根据课程ID获取课程信息
     @Override
     public GymCourse getCourseById(Long courseId) {
-        // 使用 MyBatis Plus 的 selectById 方法根据课程ID查询课程信息
-        return gymCourseMapper.selectById(courseId);
+        return gymCourseMapper.getCourseById(courseId);
     }
 
-    /**
-     * 添加课程
-     * @param course 待添加的课程信息
-     * @return 添加成功返回 true，否则返回 false
-     */
+    // 添加课程
     @Override
     public boolean addCourse(GymCourse course) {
-        // 使用 MyBatis Plus 的 insert 方法添加课程
-        int rows = gymCourseMapper.insert(course);
-        // 返回操作结果，如果影响的行数大于0则表示添加成功
+        int rows = gymCourseMapper.addCourse(course);
         return rows > 0;
     }
 
-    /**
-     * 更新课程信息
-     * @param course 待更新的课程信息
-     * @return 更新成功返回 true，否则返回 false
-     */
+    // 更新课程信息
     @Override
     public boolean updateCourse(GymCourse course) {
-        // 使用 MyBatis Plus 的 updateById 方法根据课程ID更新课程信息
-        int rows = gymCourseMapper.updateById(course);
-        // 返回操作结果，如果影响的行数大于0则表示更新成功
+        int rows = gymCourseMapper.updateCourse(course);
         return rows > 0;
     }
 
-    /**
-     * 删除课程
-     * @param courseId 待删除课程的ID
-     * @return 删除成功返回 true，否则返回 false
-     */
+    // 删除课程
     @Override
     public boolean deleteCourse(Long courseId) {
-        // 使用 MyBatis Plus 的 deleteById 方法根据课程ID删除课程
-        int rows = gymCourseMapper.deleteById(courseId);
-        // 返回操作结果，如果影响的行数大于0则表示删除成功
+        int rows = gymCourseMapper.deleteCourse(courseId);
         return rows > 0;
     }
 }
