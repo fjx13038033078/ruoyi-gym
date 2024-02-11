@@ -19,8 +19,9 @@
           <el-table-column label="课程地点" prop="courseLocation" align="center"></el-table-column>
           <el-table-column label="教练名称" prop="trainerName" align="center"></el-table-column>
           <el-table-column label="课程费用" prop="courseFee" align="center"></el-table-column>
-          <el-table-column label="操作" align="center" width="200px">
+          <el-table-column label="操作" align="center" width="230px">
             <template slot-scope="scope">
+              <el-button type="success" size="mini" @click="handleView(scope.row)">查看</el-button>
               <el-button type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
               <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
             </template>
@@ -37,27 +38,27 @@
                 <el-input v-model="courseForm.courseId" disabled></el-input>
               </el-form-item>
               <el-form-item label="课程名称">
-                <el-input v-model="courseForm.courseName"></el-input>
+                <el-input v-model="courseForm.courseName" :disabled="isReadOnly"></el-input>
               </el-form-item>
               <el-form-item label="课程描述">
-                <el-input v-model="courseForm.courseDescription"></el-input>
+                <el-input v-model="courseForm.courseDescription" :disabled="isReadOnly"></el-input>
               </el-form-item>
               <el-form-item label="课程时间">
-                <el-date-picker v-model="courseForm.courseTime" type="datetime" placeholder="选择日期时间"></el-date-picker>
+                <el-date-picker v-model="courseForm.courseTime" type="datetime" placeholder="选择日期时间" :disabled="isReadOnly"></el-date-picker>
               </el-form-item>
               <el-form-item label="课程地点">
-                <el-input v-model="courseForm.courseLocation"></el-input>
+                <el-input v-model="courseForm.courseLocation" :disabled="isReadOnly"></el-input>
               </el-form-item>
               <el-form-item label="教练名称">
-                <el-input v-model="courseForm.trainerName"></el-input>
+                <el-input v-model="courseForm.trainerName" :disabled="isReadOnly"></el-input>
               </el-form-item>
               <el-form-item label="课程费用">
-                <el-input v-model="courseForm.courseFee" type="number"></el-input>
+                <el-input v-model="courseForm.courseFee" type="number" :disabled="isReadOnly"></el-input>
               </el-form-item>
             </el-form>
           </div>
           <!-- 对话框按钮 -->
-          <div slot="footer" class="dialog-footer">
+          <div slot="footer" class="dialog-footer" style="text-align: center;">
             <el-button @click="handleCloseDialog">取消</el-button>
             <el-button type="primary" @click="handleSubmit">{{ dialogButtonText }}</el-button>
           </div>
@@ -69,7 +70,7 @@
 </template>
 
 <script>
-import { listCourses, addCourse, updateCourse, deleteCourse } from '@/api/gym/course'
+import {listCourses, addCourse, updateCourse, deleteCourse, getCourse} from '@/api/gym/course'
 
 export default {
   data() {
@@ -86,7 +87,8 @@ export default {
         courseLocation: '',
         trainerName: '',
         courseFee: ''
-      }
+      },
+      isReadOnly: false // 是否只读模式
     }
   },
   created() {
@@ -114,16 +116,21 @@ export default {
       };
     },
     handleAddCourse() {
+      this.dialogTitle = "新增课程";
+      this.dialogButtonText = "添加"
+      this.isReadOnly = false; // 设置为只读模式
       this.dialogVisible = true; // 打开对话框
     },
     // 添加课程
     addCourse(courseData) {
+      console.log("111")
       // 验证课程名称是否为空
       if (!this.courseForm.courseName) {
         this.$message.error('课程名称不能为空');
         return;
       }
       addCourse(this.courseForm).then(response => {
+        console.log("11111")
         // 处理添加课程成功的情况
         // 添加成功后重新获取课程列表
         this.fetchCourses();
@@ -143,19 +150,11 @@ export default {
         this.dialogVisible = false; // 关闭对话框
         // 清空表单数据
         this.clearForm();
+        // 将对话框按钮文本设置为其他值，避免再次触发更新操作
+        this.dialogButtonText = '更新成功';
       }).catch(error => {
         // 处理更新课程失败的情况
       });
-    },
-    // 编辑课程
-    editCourse(courseData) {
-      updateCourse(courseData).then(response => {
-        // 处理编辑课程成功的情况
-        // 编辑成功后重新获取课程列表
-        this.fetchCourses()
-      }).catch(error => {
-        // 处理编辑课程失败的情况
-      })
     },
     // 删除课程
     deleteCourse(courseId) {
@@ -173,6 +172,7 @@ export default {
       this.courseForm = Object.assign({}, row);
       this.dialogTitle = '编辑课程'; // 设置对话框标题为编辑课程
       this.dialogButtonText = '更新'; // 设置对话框按钮文本为更新
+      this.isReadOnly = false; // 设置为可编辑模式
       this.dialogVisible = true; // 打开对话框
     },
     // 提交表单
@@ -180,9 +180,11 @@ export default {
       if (this.dialogButtonText === '更新') {
         // 调用更新课程的方法
         this.updateCourse(this.courseForm);
-      } else {
+      } else if (this.dialogButtonText === "添加"){
         // 调用添加课程的方法
         this.addCourse(this.courseForm);
+      } else {
+        this.handleCloseDialog()
       }
     },
     // 删除按钮点击事件
@@ -198,10 +200,21 @@ export default {
         // 用户取消删除操作
       })
     },
+    // 查看课程
+    handleView(row) {
+      this.dialogTitle = '查看课程'; // 设置对话框标题为查看课程
+      this.dialogButtonText = '关闭'; // 设置对话框按钮文本为关闭
+      this.isReadOnly = true; // 设置为只读模式
+      // 调用后端接口获取课程详细信息
+      getCourse(row.courseId).then(response => {
+        this.courseForm = response.data; // 填充表单数据
+        this.dialogVisible = true; // 打开对话框
+      }).catch(error => {
+        // 处理异常情况
+      });
+    },
     handleCloseDialog() {
-      // 清空表单数据
       this.clearForm();
-      // 关闭对话框
       this.dialogVisible = false;
     }
   }
