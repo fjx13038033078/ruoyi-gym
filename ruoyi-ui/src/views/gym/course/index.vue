@@ -11,7 +11,7 @@
         </el-row>
 
         <!-- 课程列表 -->
-        <el-table :data="courseList" style="width: 100%" border>
+        <el-table :data="courseList" v-loading="loading" style="width: 100%" border>
           <el-table-column label="课程ID" prop="courseId" align="center"></el-table-column>
           <el-table-column label="课程名称" prop="courseName" align="center"></el-table-column>
           <el-table-column label="课程描述" prop="courseDescription" align="center"></el-table-column>
@@ -27,6 +27,15 @@
             </template>
           </el-table-column>
         </el-table>
+
+        <!-- 分页组件 -->
+        <pagination
+          v-show="totalCourses>0"
+          :total="totalCourses"
+          :page.sync="queryParams.pageNum"
+          :limit.sync="queryParams.pageSize"
+          @pagination="fetchCourses"
+        />
 
         <!-- 添加/编辑课程对话框 -->
         <el-dialog :visible.sync="dialogVisible" :title="dialogTitle" width="30%" @close="handleCloseDialog">
@@ -44,7 +53,8 @@
                 <el-input v-model="courseForm.courseDescription" :disabled="isReadOnly"></el-input>
               </el-form-item>
               <el-form-item label="课程时间">
-                <el-date-picker v-model="courseForm.courseTime" type="datetime" placeholder="选择日期时间" :disabled="isReadOnly"></el-date-picker>
+                <el-date-picker v-model="courseForm.courseTime" type="datetime" placeholder="选择日期时间"
+                                :disabled="isReadOnly"></el-date-picker>
               </el-form-item>
               <el-form-item label="课程地点">
                 <el-input v-model="courseForm.courseLocation" :disabled="isReadOnly"></el-input>
@@ -75,8 +85,12 @@ import {listCourses, addCourse, updateCourse, deleteCourse, getCourse} from '@/a
 export default {
   data() {
     return {
+      // 遮罩层
+      loading: true,
       activeTab: 'course', // 当前激活的选项卡，默认为课程管理
       courseList: [], // 课程列表数据
+      // 总条数
+      totalCourses: 0,
       dialogVisible: false,// 控制新增课程对话框的显示与隐藏
       dialogTitle: '', // 对话框标题
       dialogButtonText: '', // 对话框按钮文本
@@ -88,7 +102,12 @@ export default {
         trainerName: '',
         courseFee: ''
       },
-      isReadOnly: false // 是否只读模式
+      isReadOnly: false,// 是否只读模式
+      // 查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+      },
     }
   },
   created() {
@@ -98,10 +117,12 @@ export default {
   methods: {
     // 获取课程列表
     fetchCourses() {
-      listCourses().then(response => {
-        this.courseList = response.rows; // 注意这里根据实际返回数据的结构来修改
-      }).catch(error => {
-        // 处理异常情况
+      this.loading = true;
+      listCourses(this.queryParams).then(response => {
+        console.log(this.queryParams.pageNum)
+        this.courseList = response.rows;
+        this.totalCourses = response.total;
+        this.loading = false;
       })
     },
     clearForm() {
@@ -137,9 +158,7 @@ export default {
         this.dialogVisible = false; // 关闭对话框
         // 清空表单数据
         this.clearForm();
-      }).catch(error => {
-        // 处理添加课程失败的情况
-      });
+      })
     },
     // 更新课程
     updateCourse(courseData) {
@@ -152,9 +171,7 @@ export default {
         this.clearForm();
         // 将对话框按钮文本设置为其他值，避免再次触发更新操作
         this.dialogButtonText = '更新成功';
-      }).catch(error => {
-        // 处理更新课程失败的情况
-      });
+      })
     },
     // 删除课程
     deleteCourse(courseId) {
@@ -162,8 +179,6 @@ export default {
         // 处理删除课程成功的情况
         // 删除成功后重新获取课程列表
         this.fetchCourses()
-      }).catch(error => {
-        // 处理删除课程失败的情况
       })
     },
     // 编辑按钮点击事件
@@ -180,7 +195,7 @@ export default {
       if (this.dialogButtonText === '更新') {
         // 调用更新课程的方法
         this.updateCourse(this.courseForm);
-      } else if (this.dialogButtonText === "添加"){
+      } else if (this.dialogButtonText === "添加") {
         // 调用添加课程的方法
         this.addCourse(this.courseForm);
       } else {
@@ -196,8 +211,6 @@ export default {
         type: 'warning'
       }).then(() => {
         this.deleteCourse(row.courseId)
-      }).catch(() => {
-        // 用户取消删除操作
       })
     },
     // 查看课程
@@ -209,14 +222,12 @@ export default {
       getCourse(row.courseId).then(response => {
         this.courseForm = response.data; // 填充表单数据
         this.dialogVisible = true; // 打开对话框
-      }).catch(error => {
-        // 处理异常情况
-      });
+      })
     },
     handleCloseDialog() {
       this.clearForm();
       this.dialogVisible = false;
-    }
+    },
   }
 }
 </script>

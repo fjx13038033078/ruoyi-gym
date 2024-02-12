@@ -224,6 +224,7 @@ export default {
     getList() {
       this.loading = true;
       listNotice(this.queryParams).then(response => {
+        console.log(this.queryParams.pageNum);
         this.noticeList = response.rows;
         this.total = response.total;
         this.loading = false;
