@@ -8,6 +8,7 @@
     <resultMap type="com.ruoyi.gym.domain.GymCourseComment" id="GymCourseCommentResult">
         <id property="commentId" column="comment_id"/>
         <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
         <result property="courseId" column="course_id"/>
         <result property="commentContent" column="comment_content"/>
         <result property="commentTime" column="comment_time"/>
@@ -25,8 +26,8 @@
 
     <!-- 添加课程评论 -->
     <insert id="addComment" parameterType="com.ruoyi.gym.domain.GymCourseComment">
-        INSERT INTO gym_course_comment (user_id, course_id, comment_content, comment_time)
-        VALUES (#{userId}, #{courseId}, #{commentContent}, #{commentTime})
+        INSERT INTO gym_course_comment (user_id, user_name, course_id, comment_content, comment_time)
+        VALUES (#{userId}, {userName}, #{courseId}, #{commentContent}, #{commentTime})
     </insert>
 
     <!-- 删除课程评论 -->

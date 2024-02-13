@@ -50,8 +50,10 @@ public class GymCourseCommentServiceImpl implements GymCourseCommentService {
      */
     @Override
     public boolean addComment(GymCourseComment comment) {
-        //获取当前登录用户的ID
+        //设置评论人ID为当前登录用户的ID
         comment.setUserId(SecurityUtils.getUserId());
+        // 设置评论人姓名为当前登录用户姓名
+        comment.setUserName(SecurityUtils.getUsername());
         // 设置评论时间为当前时间
         comment.setCommentTime(LocalDateTime.now());
         int rows = gymCourseCommentMapper.addComment(comment);
@@ -74,7 +76,7 @@ public class GymCourseCommentServiceImpl implements GymCourseCommentService {
             return rows > 0;
         } else {
             // 当前用户不是评论的作者，不能删除评论
-            throw new RuntimeException("无权删除他人评论");
+            throw new RuntimeException("仅可以删除自己的评论");
         }
     }
 }

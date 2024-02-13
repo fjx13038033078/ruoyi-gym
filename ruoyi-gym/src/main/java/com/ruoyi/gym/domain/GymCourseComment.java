@@ -38,6 +38,11 @@ public class GymCourseComment implements Serializable {
     private Long userId;
 
     /**
+     * 用户姓名
+     */
+    private String userName;
+
+    /**
      * 评论内容
      */
     private String commentContent;
