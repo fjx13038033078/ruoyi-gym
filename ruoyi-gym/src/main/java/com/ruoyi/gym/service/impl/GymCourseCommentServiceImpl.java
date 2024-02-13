@@ -50,6 +50,7 @@ public class GymCourseCommentServiceImpl implements GymCourseCommentService {
      */
     @Override
     public boolean addComment(GymCourseComment comment) {
+        //获取当前登录用户的ID
         comment.setUserId(SecurityUtils.getUserId());
         // 设置评论时间为当前时间
         comment.setCommentTime(LocalDateTime.now());
@@ -65,7 +66,15 @@ public class GymCourseCommentServiceImpl implements GymCourseCommentService {
      */
     @Override
     public boolean deleteComment(Long commentId) {
-        int rows = gymCourseCommentMapper.deleteComment(commentId);
-        return rows > 0;
+        Long userId = SecurityUtils.getUserId(); // 获取当前登录用户的ID
+        // 根据评论ID查询评论信息
+        GymCourseComment comment = gymCourseCommentMapper.getCommentById(commentId);
+        if (comment != null && userId.equals(comment.getUserId())) { // 检查当前用户是否是评论的作者
+            int rows = gymCourseCommentMapper.deleteComment(commentId); // 执行删除操作
+            return rows > 0;
+        } else {
+            // 当前用户不是评论的作者，不能删除评论
+            throw new RuntimeException("无权删除他人评论");
+        }
     }
 }
