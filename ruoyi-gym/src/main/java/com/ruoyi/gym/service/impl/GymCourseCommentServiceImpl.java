@@ -27,8 +27,8 @@ public class GymCourseCommentServiceImpl implements GymCourseCommentService {
      * @return 课程评论列表
      */
     @Override
-    public List<GymCourseComment> listAllComments() {
-        return gymCourseCommentMapper.listAllComments();
+    public List<GymCourseComment> listCommentsById(Long courseId) {
+        return gymCourseCommentMapper.listCommentsById(courseId);
     }
 
     /**

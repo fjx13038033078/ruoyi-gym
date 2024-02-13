@@ -14,9 +14,9 @@
         <result property="commentTime" column="comment_time"/>
     </resultMap>
 
-    <!-- 获取所有课程评论列表 -->
-    <select id="listAllComments" resultMap="GymCourseCommentResult">
-        SELECT * FROM gym_course_comment
+    <!-- 获取某一课程评论列表 -->
+    <select id="listCommentsById" resultMap="GymCourseCommentResult">
+        SELECT * FROM gym_course_comment where course_id = #{courseId}
     </select>
 
     <!-- 根据评论ID获取评论信息 -->
@@ -27,7 +27,7 @@
     <!-- 添加课程评论 -->
     <insert id="addComment" parameterType="com.ruoyi.gym.domain.GymCourseComment">
         INSERT INTO gym_course_comment (user_id, user_name, course_id, comment_content, comment_time)
-        VALUES (#{userId}, {userName}, #{courseId}, #{commentContent}, #{commentTime})
+        VALUES (#{userId}, #{userName}, #{courseId}, #{commentContent}, #{commentTime})
     </insert>
 
     <!-- 删除课程评论 -->

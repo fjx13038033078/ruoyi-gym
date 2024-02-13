@@ -9,7 +9,7 @@ import java.util.List;
 public interface GymCourseCommentMapper {
 
     // 获取所有课程评论列表
-    List<GymCourseComment> listAllComments();
+    List<GymCourseComment> listCommentsById(Long courseId);
 
     // 根据评论ID获取评论信息
     GymCourseComment getCommentById(Long commentId);

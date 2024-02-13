@@ -27,9 +27,9 @@ public class GymCourseCommentController extends BaseController {
      * @return 课程评论列表
      */
     @GetMapping("/listAll")
-    public TableDataInfo listAllComments() {
+    public TableDataInfo listAllComments(@RequestParam Long courseId) {
         startPage();
-        List<GymCourseComment> commentList = gymCourseCommentService.listAllComments();
+        List<GymCourseComment> commentList = gymCourseCommentService.listCommentsById(courseId);
         return getDataTable(commentList);
     }
 

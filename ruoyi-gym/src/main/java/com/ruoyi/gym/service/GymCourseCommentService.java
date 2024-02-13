@@ -15,7 +15,7 @@ public interface GymCourseCommentService {
      *
      * @return 课程评论列表
      */
-    List<GymCourseComment> listAllComments();
+    public List<GymCourseComment> listCommentsById(Long courseId);
 
     /**
      * 根据评论ID获取评论信息
