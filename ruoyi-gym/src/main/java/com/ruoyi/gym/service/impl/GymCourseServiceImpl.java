@@ -1,5 +1,6 @@
 package com.ruoyi.gym.service.impl;
 
+import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.gym.domain.GymCourse;
 import com.ruoyi.gym.mapper.GymCourseMapper;
 import com.ruoyi.gym.service.GymCourseService;
@@ -36,6 +37,8 @@ public class GymCourseServiceImpl implements GymCourseService {
     // 添加课程
     @Override
     public boolean addCourse(GymCourse course) {
+        course.setTrainerName(SecurityUtils.getUsername());
+        course.setTrainerId(SecurityUtils.getUserId());
         int rows = gymCourseMapper.addCourse(course);
         return rows > 0;
     }
@@ -43,14 +46,27 @@ public class GymCourseServiceImpl implements GymCourseService {
     // 更新课程信息
     @Override
     public boolean updateCourse(GymCourse course) {
-        int rows = gymCourseMapper.updateCourse(course);
-        return rows > 0;
+        Long userId = SecurityUtils.getUserId(); // 获取当前登录用户的ID
+        if (course.getTrainerId().equals(userId)) {
+            int rows = gymCourseMapper.updateCourse(course);
+            return rows > 0;
+        } else {
+            // 当前用户不是课程的发起者，不能编辑课程
+            throw new RuntimeException("仅可以编辑自己的课程");
+        }
     }
 
     // 删除课程
     @Override
     public boolean deleteCourse(Long courseId) {
-        int rows = gymCourseMapper.deleteCourse(courseId);
-        return rows > 0;
+        GymCourse course = gymCourseMapper.getCourseById(courseId);
+        if (course.getTrainerId().equals(SecurityUtils.getUserId())){
+            int rows = gymCourseMapper.deleteCourse(courseId);
+            return rows > 0;
+        } else{
+            // 当前用户不是课程的发起者，不能删除课程
+            throw new RuntimeException("仅可以删除自己的课程");
+        }
+
     }
 }

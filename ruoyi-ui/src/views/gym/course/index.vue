@@ -14,11 +14,10 @@
         <el-table :data="courseList" v-loading="loading" style="width: 100%" border>
           <el-table-column label="课程ID" prop="courseId" align="center"></el-table-column>
           <el-table-column label="课程名称" prop="courseName" align="center"></el-table-column>
-          <el-table-column label="课程描述" prop="courseDescription" align="center"></el-table-column>
           <el-table-column label="课程时间" prop="courseTime" align="center"></el-table-column>
-          <el-table-column label="课程地点" prop="courseLocation" align="center"></el-table-column>
           <el-table-column label="教练名称" prop="trainerName" align="center"></el-table-column>
           <el-table-column label="课程费用" prop="courseFee" align="center"></el-table-column>
+          <el-table-column label="课程描述" prop="courseDescription" align="center" width="300px"></el-table-column>
           <el-table-column label="操作" align="center" width="280px">
             <template slot-scope="scope">
               <el-button type="info" size="mini" @click="handleComment(scope.row)">评论</el-button>
@@ -44,9 +43,9 @@
           <div>
             <el-form :model="courseForm" label-width="100px">
               <!-- 课程ID -->
-              <el-form-item label="课程ID">
-                <el-input v-model="courseForm.courseId" disabled></el-input>
-              </el-form-item>
+              <!--              <el-form-item label="课程ID">-->
+              <!--                <el-input v-model="courseForm.courseId" disabled></el-input>-->
+              <!--              </el-form-item>-->
               <el-form-item label="课程名称">
                 <el-input v-model="courseForm.courseName" :disabled="isReadOnly"></el-input>
               </el-form-item>
@@ -57,10 +56,7 @@
                 <el-date-picker v-model="courseForm.courseTime" type="datetime" placeholder="选择日期时间"
                                 :disabled="isReadOnly"></el-date-picker>
               </el-form-item>
-              <el-form-item label="课程地点">
-                <el-input v-model="courseForm.courseLocation" :disabled="isReadOnly"></el-input>
-              </el-form-item>
-              <el-form-item label="教练名称">
+              <el-form-item label="教练名称" v-show="isShow">
                 <el-input v-model="courseForm.trainerName" :disabled="isReadOnly"></el-input>
               </el-form-item>
               <el-form-item label="课程费用">
@@ -143,6 +139,7 @@ export default {
         courseFee: ''
       },
       isReadOnly: false,// 是否只读模式
+      isShow: true,
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -182,6 +179,7 @@ export default {
     handleAddCourse() {
       this.dialogTitle = "新增课程";
       this.dialogButtonText = "添加"
+      this.isShow = false;
       this.isReadOnly = false; // 设置为只读模式
       this.dialogVisible = true; // 打开对话框
     },
@@ -229,6 +227,7 @@ export default {
       this.dialogTitle = '编辑课程'; // 设置对话框标题为编辑课程
       this.dialogButtonText = '更新'; // 设置对话框按钮文本为更新
       this.isReadOnly = false; // 设置为可编辑模式
+      this.isShow = false;
       this.dialogVisible = true; // 打开对话框
     },
     // 提交表单
@@ -259,6 +258,7 @@ export default {
       this.dialogTitle = '查看课程'; // 设置对话框标题为查看课程
       this.dialogButtonText = '关闭'; // 设置对话框按钮文本为关闭
       this.isReadOnly = true; // 设置为只读模式
+      this.isShow = true;
       // 调用后端接口获取课程详细信息
       getCourse(row.courseId).then(response => {
         this.courseForm = response.data; // 填充表单数据
@@ -324,6 +324,7 @@ export default {
 </script>
 
 <style scoped>
+/* 分割线样式 */
 .center-text {
   display: flex;
   justify-content: center;

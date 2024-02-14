@@ -4,12 +4,14 @@ import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.gym.domain.GymCourseComment;
 import com.ruoyi.gym.mapper.GymCourseCommentMapper;
 import com.ruoyi.gym.service.GymCourseCommentService;
+import com.ruoyi.system.service.ISysRoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 针对表【gym_course_comment(课程评论表)】的数据库操作 Service 实现
@@ -20,6 +22,8 @@ import java.util.List;
 public class GymCourseCommentServiceImpl implements GymCourseCommentService {
 
     private final GymCourseCommentMapper gymCourseCommentMapper;
+
+    private final ISysRoleService iSysRoleService;
 
     /**
      * 获取所有课程评论
@@ -50,8 +54,17 @@ public class GymCourseCommentServiceImpl implements GymCourseCommentService {
      */
     @Override
     public boolean addComment(GymCourseComment comment) {
+        //获取当前登录用户ID
+        Long userId = SecurityUtils.getUserId();
+        Set<String> roles = iSysRoleService.selectRolePermissionByUserId(userId);
+        log.info("roles: "+roles);
+        for (String role : roles){
+            if ("coach".equals(role)){
+                throw new RuntimeException("教练员无法评论课程");
+            }
+        }
         //设置评论人ID为当前登录用户的ID
-        comment.setUserId(SecurityUtils.getUserId());
+        comment.setUserId(userId);
         // 设置评论人姓名为当前登录用户姓名
         comment.setUserName(SecurityUtils.getUsername());
         // 设置评论时间为当前时间
