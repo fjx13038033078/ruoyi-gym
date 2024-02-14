@@ -47,7 +47,7 @@ public class GymCourseServiceImpl implements GymCourseService {
     @Override
     public boolean updateCourse(GymCourse course) {
         Long userId = SecurityUtils.getUserId(); // 获取当前登录用户的ID
-        if (course.getTrainerId().equals(userId)) {
+        if (course.getTrainerId().equals(userId) || userId == 1) {
             int rows = gymCourseMapper.updateCourse(course);
             return rows > 0;
         } else {
@@ -60,10 +60,11 @@ public class GymCourseServiceImpl implements GymCourseService {
     @Override
     public boolean deleteCourse(Long courseId) {
         GymCourse course = gymCourseMapper.getCourseById(courseId);
-        if (course.getTrainerId().equals(SecurityUtils.getUserId())){
+        Long userId = SecurityUtils.getUserId();
+        if (course.getTrainerId().equals(userId) || userId == 1) {
             int rows = gymCourseMapper.deleteCourse(courseId);
             return rows > 0;
-        } else{
+        } else {
             // 当前用户不是课程的发起者，不能删除课程
             throw new RuntimeException("仅可以删除自己的课程");
         }

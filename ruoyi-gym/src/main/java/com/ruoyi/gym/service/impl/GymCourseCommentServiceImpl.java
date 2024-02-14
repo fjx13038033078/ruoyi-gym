@@ -84,7 +84,7 @@ public class GymCourseCommentServiceImpl implements GymCourseCommentService {
         Long userId = SecurityUtils.getUserId(); // 获取当前登录用户的ID
         // 根据评论ID查询评论信息
         GymCourseComment comment = gymCourseCommentMapper.getCommentById(commentId);
-        if (comment != null && userId.equals(comment.getUserId())) { // 检查当前用户是否是评论的作者
+        if (comment != null && (userId.equals(comment.getUserId())) || userId == 1){ // 检查当前用户是否是评论的作者
             int rows = gymCourseCommentMapper.deleteComment(commentId); // 执行删除操作
             return rows > 0;
         } else {

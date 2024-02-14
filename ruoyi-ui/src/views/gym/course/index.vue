@@ -12,9 +12,9 @@
 
         <!-- 课程列表 -->
         <el-table :data="courseList" v-loading="loading" style="width: 100%" border>
-          <el-table-column label="课程ID" prop="courseId" align="center"></el-table-column>
+          <el-table-column label="课程ID" prop="courseId" align="center" width="100px"></el-table-column>
           <el-table-column label="课程名称" prop="courseName" align="center"></el-table-column>
-          <el-table-column label="课程时间" prop="courseTime" align="center"></el-table-column>
+          <el-table-column label="课程时间" prop="courseTime" align="center" width="200px"></el-table-column>
           <el-table-column label="教练名称" prop="trainerName" align="center"></el-table-column>
           <el-table-column label="课程费用" prop="courseFee" align="center"></el-table-column>
           <el-table-column label="课程描述" prop="courseDescription" align="center" width="300px"></el-table-column>
