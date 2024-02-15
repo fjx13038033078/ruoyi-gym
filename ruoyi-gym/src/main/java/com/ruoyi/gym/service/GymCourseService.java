@@ -12,7 +12,6 @@ import java.util.List;
  */
 public interface GymCourseService {
 
-
     public List<GymCourse> listAllCourses();
 
     public GymCourse getCourseById(Long courseId);

@@ -19,6 +19,7 @@ import lombok.*;
 @ToString
 @RequiredArgsConstructor
 public class GymEquipment implements Serializable {
+
     /**
      * 设备ID
      */

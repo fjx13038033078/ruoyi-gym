@@ -68,6 +68,5 @@ public class GymCourseServiceImpl implements GymCourseService {
             // 当前用户不是课程的发起者，不能删除课程
             throw new RuntimeException("仅可以删除自己的课程");
         }
-
     }
 }
