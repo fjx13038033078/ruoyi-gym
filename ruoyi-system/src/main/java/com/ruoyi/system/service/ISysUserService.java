@@ -145,6 +145,14 @@ public interface ISysUserService
     public int updateUserStatus(SysUser user);
 
     /**
+     * 修改用户余额
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    public int updateUserBalance(SysUser user);
+
+    /**
      * 修改用户基本信息
      * 
      * @param user 用户信息

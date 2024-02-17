@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
+import org.apache.poi.hpsf.Decimal;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -60,7 +62,7 @@ public class GymCourse implements Serializable {
     /**
      * 课程费用
      */
-    private Integer courseFee;
+    private BigDecimal courseFee;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

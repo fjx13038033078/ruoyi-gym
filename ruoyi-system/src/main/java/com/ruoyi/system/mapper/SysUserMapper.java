@@ -77,6 +77,16 @@ public interface SysUserMapper
      */
     public int updateUserAvatar(@Param("userName") String userName, @Param("avatar") String avatar);
 
+
+    /**
+     * 修改用户余额
+     *
+     * @param user 用户
+     * @return 结果
+     */
+    public int updateUserBalance(SysUser user);
+
+
     /**
      * 重置用户密码
      * 

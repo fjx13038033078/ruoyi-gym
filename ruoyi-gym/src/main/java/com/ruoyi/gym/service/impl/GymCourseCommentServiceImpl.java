@@ -57,7 +57,6 @@ public class GymCourseCommentServiceImpl implements GymCourseCommentService {
         //获取当前登录用户ID
         Long userId = SecurityUtils.getUserId();
         Set<String> roles = iSysRoleService.selectRolePermissionByUserId(userId);
-        log.info("roles: "+roles);
         for (String role : roles){
             if ("coach".equals(role)){
                 throw new RuntimeException("教练员无法评论课程");

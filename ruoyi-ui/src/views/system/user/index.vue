@@ -153,7 +153,8 @@
               ></el-switch>
             </template>
           </el-table-column>
-          <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
+          <el-table-column label="余额" align="center" key="balance" prop="balance" v-if="columns[6].visible" />
+          <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[7].visible" width="160">
             <template slot-scope="scope">
               <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
@@ -296,6 +297,13 @@
         </el-row>
         <el-row>
           <el-col :span="24">
+            <el-form-item label="余额">
+              <el-input v-model="form.balance" type="number" placeholder="请输入金额"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="24">
             <el-form-item label="备注">
               <el-input v-model="form.remark" type="textarea" placeholder="请输入内容"></el-input>
             </el-form-item>
@@ -420,7 +428,8 @@ export default {
         { key: 3, label: `部门`, visible: true },
         { key: 4, label: `手机号码`, visible: true },
         { key: 5, label: `状态`, visible: true },
-        { key: 6, label: `创建时间`, visible: true }
+        { key: 6, label: `余额`, visible: true },
+        { key: 7, label: `创建时间`, visible: true }
       ],
       // 表单校验
       rules: {
@@ -521,6 +530,7 @@ export default {
         sex: undefined,
         status: "0",
         remark: undefined,
+        balance:undefined,
         postIds: [],
         roleIds: []
       };

@@ -327,6 +327,18 @@ public class SysUserServiceImpl implements ISysUserService
     }
 
     /**
+     * 修改用户余额
+     *
+     * @param user 用户信息
+     * @return 结果
+     */
+    @Override
+    public int updateUserBalance(SysUser user)
+    {
+        return userMapper.updateUserBalance(user);
+    }
+
+    /**
      * 修改用户基本信息
      * 
      * @param user 用户信息

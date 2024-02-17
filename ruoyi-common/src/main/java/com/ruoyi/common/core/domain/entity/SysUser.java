@@ -1,5 +1,6 @@
 package com.ruoyi.common.core.domain.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.*;
@@ -12,10 +13,11 @@ import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.annotation.Excel.ColumnType;
 import com.ruoyi.common.annotation.Excel.Type;
 import com.ruoyi.common.annotation.Excels;
+import org.apache.poi.hpsf.Decimal;
 
 /**
  * 用户对象 sys_user
- * 
+ *
  * @author ruoyi
  */
 public class SysUser extends BaseEntity
@@ -90,6 +92,9 @@ public class SysUser extends BaseEntity
     /** 角色ID */
     private Long roleId;
 
+    /** 余额 */
+    private BigDecimal balance;
+
     public SysUser()
     {
 
@@ -123,6 +128,14 @@ public class SysUser extends BaseEntity
     public Long getDeptId()
     {
         return deptId;
+    }
+
+    public void setBalance(BigDecimal balance){
+        this.balance = balance;
+    }
+
+    public BigDecimal getBalance(){
+        return balance;
     }
 
     public void setDeptId(Long deptId)
@@ -320,6 +333,7 @@ public class SysUser extends BaseEntity
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
             .append("dept", getDept())
+            .append("balance",getBalance())
             .toString();
     }
 }

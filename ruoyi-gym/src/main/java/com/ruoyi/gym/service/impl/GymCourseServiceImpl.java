@@ -59,8 +59,11 @@ public class GymCourseServiceImpl implements GymCourseService {
     // 删除课程
     @Override
     public boolean deleteCourse(Long courseId) {
+        //获取传入的courseId对应的课程信息
         GymCourse course = gymCourseMapper.getCourseById(courseId);
+        //获取当前登录用户的用户ID
         Long userId = SecurityUtils.getUserId();
+        //
         if (course.getTrainerId().equals(userId) || userId == 1) {
             int rows = gymCourseMapper.deleteCourse(courseId);
             return rows > 0;
