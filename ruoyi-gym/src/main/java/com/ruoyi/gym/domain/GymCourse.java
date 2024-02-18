@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
-import org.apache.poi.hpsf.Decimal;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

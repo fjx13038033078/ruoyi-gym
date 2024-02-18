@@ -18,8 +18,9 @@
         <el-table-column label="教练名称" prop="trainerName" align="center"></el-table-column>
         <el-table-column label="课程费用" prop="courseFee" align="center"></el-table-column>
         <el-table-column label="课程描述" prop="courseDescription" align="center" width="300px"></el-table-column>
-        <el-table-column label="操作" align="center" width="280px">
+        <el-table-column label="操作" align="center" width="350px">
           <template slot-scope="scope">
+            <el-button type="warning" size="mini" @click="handleAddBalanceRecord(scope.row)">报名</el-button>
             <el-button type="info" size="mini" @click="handleComment(scope.row)">评论</el-button>
             <el-button type="success" size="mini" @click="handleView(scope.row)">查看</el-button>
             <el-button type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -117,6 +118,10 @@ import {
   addComment,
   getCourseComments, listCommentsById,
 } from '@/api/gym/course'
+
+import {
+  listBalanceRecord,addBalanceRecord
+} from '@/api/gym/balanceRecord'
 
 export default {
   data() {
@@ -319,6 +324,17 @@ export default {
         this.commentDialogVisible = false; // 关闭评论对话框
       })
     },
+    handleAddBalanceRecord(row){
+      const balanceRecordData = {
+        courseId: row.courseId, // 课程ID
+        courseName:row.courseName,//课程名称
+        transactionAmount: row.courseFee, // 交易费用
+      };
+      addBalanceRecord(balanceRecordData).then(response => {
+        // 处理新增评论成功的情况
+        this.$message.success('报名成功')
+      })
+    }
   }
 }
 </script>

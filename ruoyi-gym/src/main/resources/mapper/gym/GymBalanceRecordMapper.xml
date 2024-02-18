@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.gym.mapper.GymBalanceRecordMapper">
+
+    <resultMap type="GymBalanceRecord" id="GymBalanceRecordResult">
+        <id property="transactionId" column="transaction_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="courseId" column="course_id"/>
+        <result property="transactionAmount" column="transaction_amount"/>
+        <result property="transactionTime" column="transaction_time"/>
+        <result property="balance" column="balance"/>
+    </resultMap>
+
+    <!-- 查询所有余额交易记录 -->
+    <select id="getAllBalanceRecords" resultMap="GymBalanceRecordResult">
+        SELECT * FROM gym_balance_record
+    </select>
+
+    <!-- 根据用户ID查询余额交易记录 -->
+    <select id="getBalanceRecordsByUserId" parameterType="Long" resultMap="GymBalanceRecordResult">
+        SELECT * FROM gym_balance_record WHERE user_id = #{userId}
+    </select>
+
+    <!-- 根据课程ID查询余额交易记录 -->
+    <select id="getBalanceRecordsByCourseId" parameterType="Long" resultMap="GymBalanceRecordResult">
+        SELECT * FROM gym_balance_record WHERE course_id = #{courseId}
+    </select>
+
+    <!-- 添加余额交易记录 -->
+    <insert id="addBalanceRecord" parameterType="GymBalanceRecord">
+        INSERT INTO gym_balance_record (user_id, course_id, transaction_amount, transaction_time, balance)
+        VALUES (#{userId}, #{courseId}, #{transactionAmount}, #{transactionTime}, #{balance})
+    </insert>
+
+</mapper>

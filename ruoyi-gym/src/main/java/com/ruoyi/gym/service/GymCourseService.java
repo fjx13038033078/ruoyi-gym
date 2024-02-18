@@ -1,6 +1,5 @@
 package com.ruoyi.gym.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.ruoyi.gym.domain.GymCourse;
 
 import java.util.List;
