@@ -1,14 +1,18 @@
 package com.ruoyi.web.controller.gym;
 
+import com.ruoyi.common.constant.HttpStatus;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.page.PageDomain;
 import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.common.core.page.TableSupport;
 import com.ruoyi.gym.domain.GymBalanceRecord;
 import com.ruoyi.gym.service.GymBalanceRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author fanjaixing
@@ -28,7 +32,7 @@ public class GymBalanceRecordController extends BaseController {
      */
     @GetMapping("/listAll")
     public TableDataInfo listAllBalanceRecords() {
-        startPage();
+//        startPage();
         List<GymBalanceRecord> gymBalanceRecordList = gymBalanceRecordService.getAllBalanceRecords();
         return getDataTable(gymBalanceRecordList);
     }
@@ -43,4 +47,5 @@ public class GymBalanceRecordController extends BaseController {
     public AjaxResult addComment(@RequestBody GymBalanceRecord gymBalanceRecord) {
         return toAjax(gymBalanceRecordService.addBalanceRecord(gymBalanceRecord));
     }
+
 }

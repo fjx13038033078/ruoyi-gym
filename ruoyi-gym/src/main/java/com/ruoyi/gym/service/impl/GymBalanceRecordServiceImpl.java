@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.ruoyi.common.utils.PageUtils.startPage;
+
 /**
  * @Author fanjaixing
  * @Date 2024/2/17 23:01
@@ -135,12 +137,14 @@ public class GymBalanceRecordServiceImpl implements GymBalanceRecordService {
         // 判断用户角色
         if (roles.contains("admin")) {
             // 如果当前用户是管理员，则查询所有交易记录
+            startPage();
             List<GymBalanceRecord> allRecords = gymBalanceRecordMapper.getAllBalanceRecords();
             // 填充课程名称和用户名称
             fillCourseAndUserName(allRecords);
             return allRecords;
         } else {
             // 如果不是管理员，则只查询与当前用户相关的交易记录
+            startPage();
             List<GymBalanceRecord> userRecords = gymBalanceRecordMapper.getBalanceRecordsByUserId(userId);
             // 填充课程名称和用户名称
             fillCourseAndUserName(userRecords);
