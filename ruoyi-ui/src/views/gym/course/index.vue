@@ -55,6 +55,7 @@
               </el-form-item>
               <el-form-item label="课程时间">
                 <el-date-picker v-model="courseForm.courseTime" type="datetime" placeholder="选择日期时间"
+                                value-format="yyyy-MM-dd HH:mm:ss"
                                 :disabled="isReadOnly"></el-date-picker>
               </el-form-item>
               <el-form-item label="教练名称" v-show="isShow">
