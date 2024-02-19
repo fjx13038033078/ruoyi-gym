@@ -113,14 +113,13 @@ import {
   updateCourse,
   deleteCourse,
   getCourse,
-  listAllComments,
   deleteComment,
   addComment,
-  getCourseComments, listCommentsById,
+  listCommentsById,
 } from '@/api/gym/course'
 
 import {
-  listBalanceRecord,addBalanceRecord
+  addBalanceRecord
 } from '@/api/gym/balanceRecord'
 
 export default {

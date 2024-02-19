@@ -15,17 +15,12 @@
 
     <!-- 查询所有余额交易记录 -->
     <select id="getAllBalanceRecords" resultMap="GymBalanceRecordResult">
-        SELECT * FROM gym_balance_record
+        SELECT * FROM gym_balance_record order by transaction_time desc
     </select>
 
     <!-- 根据用户ID查询余额交易记录 -->
     <select id="getBalanceRecordsByUserId" parameterType="Long" resultMap="GymBalanceRecordResult">
-        SELECT * FROM gym_balance_record WHERE user_id = #{userId}
-    </select>
-
-    <!-- 根据课程ID查询余额交易记录 -->
-    <select id="getBalanceRecordsByCourseId" parameterType="Long" resultMap="GymBalanceRecordResult">
-        SELECT * FROM gym_balance_record WHERE course_id = #{courseId}
+        SELECT * FROM gym_balance_record WHERE user_id = #{userId} order by transaction_time desc
     </select>
 
     <!-- 添加余额交易记录 -->

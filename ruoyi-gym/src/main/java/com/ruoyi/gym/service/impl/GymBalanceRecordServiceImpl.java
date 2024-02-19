@@ -20,6 +20,7 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @Author fanjaixing
@@ -132,16 +133,6 @@ public class GymBalanceRecordServiceImpl implements GymBalanceRecordService {
         return gymBalanceRecordMapper.getBalanceRecordsByUserId(userId);
     }
 
-    /**
-     * 获取指定课程的余额交易记录
-     *
-     * @param courseId 课程ID
-     * @return 该课程的余额交易记录列表
-     */
-    @Override
-    public List<GymBalanceRecord> getBalanceRecordsByCourseId(Long courseId) {
-        return gymBalanceRecordMapper.getBalanceRecordsByCourseId(courseId);
-    }
 
     /**
      * 获取所有的余额交易记录
@@ -150,6 +141,45 @@ public class GymBalanceRecordServiceImpl implements GymBalanceRecordService {
      */
     @Override
     public List<GymBalanceRecord> getAllBalanceRecords() {
-        return gymBalanceRecordMapper.getAllBalanceRecords();
+        // 获取当前登录用户ID
+        Long userId = SecurityUtils.getUserId();
+        // 获取当前用户的角色
+        Set<String> roles = iSysRoleService.selectRolePermissionByUserId(userId);
+        // 判断用户角色
+        if (roles.contains("admin")) {
+            // 如果当前用户是管理员，则查询所有交易记录
+            List<GymBalanceRecord> allRecords = gymBalanceRecordMapper.getAllBalanceRecords();
+            // 填充课程名称和用户名称
+            fillCourseAndUserName(allRecords);
+            return allRecords;
+        } else {
+            // 如果不是管理员，则只查询与当前用户相关的交易记录
+            List<GymBalanceRecord> userRecords = gymBalanceRecordMapper.getBalanceRecordsByUserId(userId);
+            // 填充课程名称和用户名称
+            fillCourseAndUserName(userRecords);
+            return userRecords;
+        }
+    }
+
+    /**
+     * 填充交易记录中的课程名称和用户名称
+     *
+     * @param records 待填充的交易记录列表
+     */
+    private void fillCourseAndUserName(List<GymBalanceRecord> records) {
+        for (GymBalanceRecord record : records) {
+            // 获取课程名称
+            Long courseId = record.getCourseId();
+            GymCourse course = gymCourseService.getCourseById(courseId);
+            if (course != null) {
+                record.setCourseName(course.getCourseName());
+            }
+            // 获取用户名称
+            Long userId = record.getUserId();
+            SysUser user = iSysUserService.selectUserById(userId);
+            if (user != null) {
+                record.setUserName(user.getUserName());
+            }
+        }
     }
 }

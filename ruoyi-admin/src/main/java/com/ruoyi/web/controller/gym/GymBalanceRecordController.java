@@ -17,7 +17,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/gym/course/balanceRecord")
+@RequestMapping("/gym/balanceRecord")
 public class GymBalanceRecordController extends BaseController {
 
     private final GymBalanceRecordService gymBalanceRecordService;
