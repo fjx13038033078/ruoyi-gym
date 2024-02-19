@@ -6,7 +6,7 @@
         <!-- 添加课程按钮 -->
         <el-row :gutter="20" class="mb-20" style="margin-bottom: 20px;">
           <el-col>
-            <el-button type="primary" @click="handleAddCourse">新增课程</el-button>
+            <el-button type="primary" @click="handleAddCourse" v-hasPermi="['gym:course:add']">新增课程</el-button>
           </el-col>
         </el-row>
 
@@ -20,11 +20,11 @@
         <el-table-column label="课程描述" prop="courseDescription" align="center" width="300px"></el-table-column>
         <el-table-column label="操作" align="center" width="350px">
           <template slot-scope="scope">
-            <el-button type="warning" size="mini" @click="handleAddBalanceRecord(scope.row)">报名</el-button>
-            <el-button type="info" size="mini" @click="handleComment(scope.row)">评论</el-button>
-            <el-button type="success" size="mini" @click="handleView(scope.row)">查看</el-button>
-            <el-button type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
+            <el-button type="warning" size="mini" @click="handleAddBalanceRecord(scope.row)" v-hasPermi="['gym:course:sign']">报名</el-button>
+            <el-button type="info" size="mini" @click="handleComment(scope.row)" v-hasPermi="['gym:course:watchComment']">评论</el-button>
+            <el-button type="success" size="mini" @click="handleView(scope.row)" v-hasPermi="['gym:course:watch']">查看</el-button>
+            <el-button type="primary" size="mini" @click="handleEdit(scope.row)" v-hasPermi="['gym:course:update']">编辑</el-button>
+            <el-button type="danger" size="mini" @click="handleDelete(scope.row)" v-hasPermi="['gym:course:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -87,7 +87,7 @@
             <div class="comment-content">
               <p>{{ comment.commentContent }}</p>
               <!-- 删除按钮 -->
-              <el-button type="danger" size="mini" @click="handleDeleteComment(comment.commentId)">删除</el-button>
+              <el-button type="danger" size="mini" @click="handleDeleteComment(comment.commentId)" v-hasPermi="['gym:course:deleteComment']">删除</el-button>
             </div>
           </div>
 
@@ -97,7 +97,7 @@
           <!-- 新增评论输入框 -->
           <div class="new-comment">
             <el-input v-model="newComment" placeholder="请输入评论内容"></el-input>
-            <el-button type="success" size="mini" @click="handleSendComment">发送评论</el-button>
+            <el-button type="success" size="mini" @click="handleSendComment" v-hasPermi="['gym:course:addComment']">发送评论</el-button>
           </div>
         </el-dialog>
 

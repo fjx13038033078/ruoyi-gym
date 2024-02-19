@@ -1,7 +1,7 @@
 package com.ruoyi.gym.mapper;
 
 import com.ruoyi.gym.domain.GymBalanceRecord;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 

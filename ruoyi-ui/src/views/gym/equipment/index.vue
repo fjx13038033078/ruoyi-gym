@@ -6,7 +6,7 @@
         <!-- 添加设备按钮 -->
         <el-row :gutter="20" class="mb-20" style="margin-bottom: 20px;">
           <el-col>
-            <el-button type="primary" @click="handleAddEquipment">新增设备</el-button>
+            <el-button type="primary" @click="handleAddEquipment" v-hasPermi="['gym:equipment:add']">新增设备</el-button>
           </el-col>
         </el-row>
 
@@ -17,9 +17,9 @@
           <el-table-column label="设备数量" prop="equipmentQuantity" align="center"></el-table-column>
           <el-table-column label="操作" align="center" width="230px">
             <template slot-scope="scope">
-              <el-button type="success" size="mini" @click="handleView(scope.row)">查看</el-button>
-              <el-button type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
-              <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
+              <el-button type="success" size="mini" @click="handleView(scope.row)" v-hasPermi="['gym:equipment:watch']">查看</el-button>
+              <el-button type="primary" size="mini" @click="handleEdit(scope.row)" v-hasPermi="['gym:equipment:update']">编辑</el-button>
+              <el-button type="danger" size="mini" @click="handleDelete(scope.row)" v-hasPermi="['gym:equipment:delete']">删除</el-button>
             </template>
           </el-table-column>
         </el-table>

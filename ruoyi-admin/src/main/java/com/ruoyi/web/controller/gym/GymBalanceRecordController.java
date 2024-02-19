@@ -4,7 +4,6 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.gym.domain.GymBalanceRecord;
-import com.ruoyi.gym.domain.GymCourseComment;
 import com.ruoyi.gym.service.GymBalanceRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +29,8 @@ public class GymBalanceRecordController extends BaseController {
     @GetMapping("/listAll")
     public TableDataInfo listAllBalanceRecords() {
         startPage();
-        List<GymBalanceRecord> allBalanceRecords = gymBalanceRecordService.getAllBalanceRecords();
-        return getDataTable(allBalanceRecords);
+        List<GymBalanceRecord> gymBalanceRecordList = gymBalanceRecordService.getAllBalanceRecords();
+        return getDataTable(gymBalanceRecordList);
     }
 
     /**

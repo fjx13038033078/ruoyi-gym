@@ -1,5 +1,6 @@
 package com.ruoyi.gym.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.gym.domain.GymBalanceRecord;
@@ -117,20 +118,6 @@ public class GymBalanceRecordServiceImpl implements GymBalanceRecordService {
         gymBalanceRecordMapper.addBalanceRecord(trainerBalanceRecord);
 
         return true; // 表示操作成功
-    }
-
-
-
-
-    /**
-     * 获取指定用户的余额交易记录
-     *
-     * @param userId 用户ID
-     * @return 该用户的余额交易记录列表
-     */
-    @Override
-    public List<GymBalanceRecord> getBalanceRecordsByUserId(Long userId) {
-        return gymBalanceRecordMapper.getBalanceRecordsByUserId(userId);
     }
 
 
