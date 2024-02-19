@@ -59,7 +59,7 @@ export default {
       this.loading = true;
       listBalanceRecord(this.queryParams).then(response => {
         this.balanceRecordList = response.rows;
-        this.balanceRecord = response.total;
+        this.totalBalanceRecord = response.total;
         this.loading = false;
       })
     },
