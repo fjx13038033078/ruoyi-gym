@@ -49,7 +49,7 @@ public class GymBalanceRecordServiceImpl implements GymBalanceRecordService {
      * @return 是否添加成功
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public boolean addBalanceRecord(GymBalanceRecord balanceRecord) {
         // 获取当前登录用户ID
         Long userId = SecurityUtils.getUserId();

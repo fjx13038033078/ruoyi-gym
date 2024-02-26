@@ -44,7 +44,7 @@ public class GymBalanceRecordController extends BaseController {
      * @return 是否添加成功
      */
     @PostMapping("/add")
-    public AjaxResult addComment(@RequestBody GymBalanceRecord gymBalanceRecord) {
+    public AjaxResult addBalanceRecord(@RequestBody GymBalanceRecord gymBalanceRecord) {
         return toAjax(gymBalanceRecordService.addBalanceRecord(gymBalanceRecord));
     }
 
