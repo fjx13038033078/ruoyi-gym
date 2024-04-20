@@ -20,7 +20,7 @@
         <el-table-column label="课程描述" prop="courseDescription" align="center" width="300px"></el-table-column>
         <el-table-column label="操作" align="center" width="350px">
           <template slot-scope="scope">
-            <el-button type="warning" size="mini" @click="handleAddBalanceRecord(scope.row)" v-hasPermi="['gym:course:sign']">报名</el-button>
+            <el-button type="warning" size="mini" @click="handleAddBalanceRecord(scope.row)" v-hasPermi="['gym:course:sign']">购课</el-button>
             <el-button type="info" size="mini" @click="handleComment(scope.row)" v-hasPermi="['gym:course:watchComment']">评论</el-button>
             <el-button type="success" size="mini" @click="handleView(scope.row)" v-hasPermi="['gym:course:watch']">查看</el-button>
             <el-button type="primary" size="mini" @click="handleEdit(scope.row)" v-hasPermi="['gym:course:update']">编辑</el-button>

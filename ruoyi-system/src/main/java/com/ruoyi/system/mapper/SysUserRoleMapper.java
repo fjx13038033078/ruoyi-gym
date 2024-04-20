@@ -52,6 +52,8 @@ public interface SysUserRoleMapper
      */
     public int deleteUserRoleInfo(SysUserRole userRole);
 
+    public int insertDefaultRole(Long userId);
+
     /**
      * 批量取消授权用户角色
      * 
