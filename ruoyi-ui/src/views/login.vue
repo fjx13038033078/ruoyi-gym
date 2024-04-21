@@ -37,6 +37,12 @@
           <img :src="codeUrl" @click="getCode" class="login-code-img"/>
         </div>
       </el-form-item>
+      <el-form-item>
+        <el-radio v-model="loginForm.role" label="1">管理员</el-radio>
+        <el-radio v-model="loginForm.role" label="2">教练员</el-radio>
+        <el-radio v-model="loginForm.role" label="3">VIP用户</el-radio>
+        <el-radio v-model="loginForm.role" label="4">普通用户</el-radio>
+      </el-form-item>
       <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
       <el-form-item style="width:100%;">
         <el-button
@@ -215,5 +221,8 @@ export default {
 }
 .login-code-img {
   height: 38px;
+}
+.el-form-item .el-radio {
+  margin-right: 15px; /* Adjust the margin-right as needed */
 }
 </style>

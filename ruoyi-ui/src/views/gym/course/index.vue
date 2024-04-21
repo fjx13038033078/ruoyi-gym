@@ -325,15 +325,35 @@ export default {
       })
     },
     handleAddBalanceRecord(row){
-      const balanceRecordData = {
-        courseId: row.courseId, // 课程ID
-        courseName:row.courseName,//课程名称
-        transactionAmount: row.courseFee, // 交易费用
-      };
-      addBalanceRecord(balanceRecordData).then(response => {
-        // 处理新增评论成功的情况
-        this.$message.success('报名成功')
-      })
+      // const balanceRecordData = {
+      //   courseId: row.courseId, // 课程ID
+      //   courseName:row.courseName,//课程名称
+      //   transactionAmount: row.courseFee, // 交易费用
+      // };
+      // addBalanceRecord(balanceRecordData).then(response => {
+      //   // 处理新增评论成功的情况
+      //   this.$message.success('购课成功')
+      // })
+      // 弹出确认框，提示用户购课
+      this.$confirm(`确认购买课程《${row.courseName}》吗？价格为：${row.courseFee}元`, '购课确认', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 用户点击确定后执行购课操作
+        const balanceRecordData = {
+          courseId: row.courseId, // 课程ID
+          courseName: row.courseName, // 课程名称
+          transactionAmount: row.courseFee, // 交易费用
+        };
+        addBalanceRecord(balanceRecordData).then(response => {
+          // 处理新增评论成功的情况
+          this.$message.success('购课成功');
+        })
+      }).catch(() => {
+        // 用户点击取消或点击遮罩层后执行的操作
+        this.$message.info('已取消购课');
+      });
     }
   }
 }
