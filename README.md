@@ -24,3 +24,5 @@
 1. 前端首次启动进入ruoyi-ui目录后，执行npm install即可
 2. 如果node版本高于16，在idea终端打开进入ruoyi-ui目录后，执行 $env:NODE_OPTIONS="--openssl-legacy-provider" 后再执行npm run dev
 
+## 联系
+1. 需要调试或者部署/需要二次开发/需要需求定制请+v:445981543
